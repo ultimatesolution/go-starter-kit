@@ -28,7 +28,7 @@ $(ON):
 	go build ./vendor/github.com/olebedev/on
 
 $(GO_BINDATA):
-	go get ./vendor/github.com/jteeuwen/go-bindata/...
+	go get github.com/jteeuwen/go-bindata/...
 
 $(BUNDLE): $(APP)
 	@$(NODE_BIN)/webpack --progress --colors --bail
