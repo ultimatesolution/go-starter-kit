@@ -1,5 +1,5 @@
 BIN           = $(GOPATH)/bin
-ON            = $(BIN)/on
+ON            = ./on
 GO_BINDATA    = $(BIN)/go-bindata
 NODE_BIN      = $(shell npm bin)
 PID           = .pid
@@ -24,10 +24,11 @@ clean:
 	@rm -rf $(BINDATA)
 
 $(ON):
-	go install $(IMPORT_PATH)/vendor/github.com/olebedev/on
+	go get -v -d ./vendor/github.com/olebedev/on
+	go build ./vendor/github.com/olebedev/on
 
 $(GO_BINDATA):
-	go install $(IMPORT_PATH)/vendor/github.com/jteeuwen/go-bindata/...
+	go get ./vendor/github.com/jteeuwen/go-bindata/...
 
 $(BUNDLE): $(APP)
 	@$(NODE_BIN)/webpack --progress --colors --bail
@@ -57,6 +58,7 @@ lint:
 	@golint $(GO_FILES) || true
 
 install:
+	go get -v -d ./server
 	@npm install
 
 ifdef SRLT
